@@ -108,11 +108,8 @@ public class DeviceResponse {
         response.setManufacturername("Philips");
             
         if (device.isColorDevice()) {
-            response.setType("Extended color light");
-            response.setModelid("LCT010");
-            response.setSwversion("1.15.2_r19181");
-            response.setSwconfigid("F921C859");
-            response.setProductid("Philips-LCT010-1-A19ECLv4");    
+            response.setType("Color light");
+            response.setModelid("LST001");
         } else {
             response.setType("Dimmable light");
             response.setModelid("LWB007");

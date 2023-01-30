@@ -115,14 +115,8 @@ public class DeviceState {
     	DeviceState newDeviceState = new DeviceState();
     	newDeviceState.fillIn(color);
         if (color) {
-            newDeviceState.setColormode("xy");
             newDeviceState.setHue(0);
             newDeviceState.setSat(0);
-            newDeviceState.setCt(153);
-            ArrayList<Double> doubleArray = new ArrayList<Double>();
-            doubleArray.add(0.3146);
-            doubleArray.add(0.3303);
-            newDeviceState.setXy(doubleArray);    
         }
     	return newDeviceState;
     }
