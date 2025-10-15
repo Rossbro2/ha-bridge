@@ -113,10 +113,10 @@ public class ConvertCIEColorTestCase {
 		
 		List<Integer> colorDecode = ColorDecode.convertHSBtoRGB(hsb);
 		List<Integer> assertDecode = new ArrayList<Integer>();
-		assertDecode.add(0, 61);
-		assertDecode.add(1, 134);
-		assertDecode.add(2, 196);
-		Assert.assertEquals(colorDecode, assertDecode);
+		assertDecode.add(0, 59);
+		assertDecode.add(1, 133);
+		assertDecode.add(2, 195);
+		Assert.assertEquals(assertDecode, colorDecode);
 	}
 
 	@Test

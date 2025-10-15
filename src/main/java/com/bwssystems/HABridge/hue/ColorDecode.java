@@ -133,67 +133,51 @@ public class ColorDecode {
 		return rgb;
 	}
 	*/
-	public static List<Integer> convertHSBtoRGB(HueSatBri hsb) {
-		List<Integer> rgb;
-		Float hue = (Float)(hsb.getHue()*1.0f);
-		Float saturation = (Float)(hsb.getSat()*1.0f);
-		Float brightness = (Float)(hsb.getBri()*1.0f);
-		log.info("Hue = " + hue + ", Sat = " + saturation + ", Bri = " + brightness);
-		//Convert Hue into degrees for HSB
-		// hue = hue / 182.04f;
-		hue = (hue / 65535.0f);
-		//Bri and Sat must be values from 0-1 (~percentage)
-		// ightness = brightness / 255.0f;
-		// saturation = saturation / 255.0f;
+	public static List<Integer> convertHSBtoRGB(HueSatBri hsb)
+   {
+      float s = 0;
 
-		brightness = brightness / 254.0f;
-		saturation = saturation / 254.0f;
+      int r = 255;
+      int g = 255;
+      int b = 255;
 
-		Float r = 0f;
-		Float g = 0f;
-		Float b = 0f;
-		Float temp2 = 0f;
-		Float temp1 = 0f;
- 
-		if(brightness > 0.0f) {
-			if (saturation == 0)
-			{
-				r = g = b = brightness;
-			}
-			else
-			{
-				temp2 = (brightness < 0.5f) ? brightness * (1.0f + saturation) : brightness + saturation - (brightness * saturation);
-				temp1 = 2.0f * brightness - temp2;
+      if (hsb.getSat() > 0)
+      {
+         s = (float)(hsb.getSat() / 254.0);
+      }
 
-				r = GetColorComponent(temp1, temp2, hue + 1.0f/3.0f);
-				g = GetColorComponent(temp1, temp2, hue);
-				b = GetColorComponent(temp1, temp2, hue - 1.0f/3.0f);
-			}
-		}
-		
-		//Check if any value is out of byte range
-		if (r < 0f)
-		{
-		  r = 0f;
-		}
-		if (g < 0f)
-		{
-		  g = 0f;
-		}
-		if (b < 0f)
-		{
-		  b = 0f;
-		}
-  
-		rgb = new ArrayList<Integer>();
-		rgb.add((int)Math.round(r*255));
-		rgb.add((int)Math.round(g*255));
-		rgb.add((int)Math.round(b*255));
-		log.debug("Color change with HSB New: " + hsb + ". Resulting RGB Values: " + rgb.get(0) + " " + rgb.get(1) + " "
-				+ rgb.get(2));
+      if (s > 0)
+      {
+         float h = 0;
+         float l = (float)0.5;
 
-		return rgb;
-	}
+         if (hsb.getHue() > 0)
+         {
+            h = ((float)hsb.getHue() / (float)65536.0);
+         }
+
+         r = (int)(255 * f(0, h, s, l));
+         g = (int)(255 * f(8, h, s, l));
+         b = (int)(255 * f(4, h, s, l));
+      }
+
+      //https://en.wikipedia.org/wiki/HSL_and_HSV
+      List<Integer> rgb = new ArrayList<Integer>();
+      rgb.add((int) Math.round(r));
+      rgb.add((int) Math.round(g));
+      rgb.add((int) Math.round(b));
+
+      log.debug("Color change with HSL: " + hsb + ". Resulting RGB Values: " + rgb.get(0) + " " + rgb.get(1) + " " + rgb.get(2));
+      return rgb;
+   }
+
+   private static float f(int n, float H, float S, float L)
+   {
+      float k = (n + (H * 12)) % 12;
+      float a = S * Math.min(L, 1 - L);
+
+      return L - a * Math.max(Math.min(Math.min(k - 3, 9 - k), 1), -1);
+   }
 
 	private static Float GetColorComponent(Float temp1, Float temp2, Float temp3)
 	{

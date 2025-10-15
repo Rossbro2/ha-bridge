@@ -117,12 +117,8 @@ public class DeviceResponse {
         response.setManufacturername("Philips");
             
         if (device.isColorDevice()) {
-            response.setType("Extended color light");
-            response.setModelid("LCT015");
-            response.setSwversion("1.46.13_r26312");
-            response.setSwconfigid("52E3234B");
-            response.setProductid("Philips-LCT015-1-A19ECLv5");
-            response.setProductName("Hue color lamp");
+            response.setType("Color light");
+            response.setModelid("LST001");
         } else {
             response.setType("Dimmable light");
             response.setModelid("LWB007");
@@ -141,12 +137,8 @@ public class DeviceResponse {
         response.setName(group.getName());
         response.setUniqueid("00:11:22:33:44:55:66:77-" + String.format("%02X", Integer.parseInt(group.getId())));
         response.setManufacturername("Philips");
-        response.setType("Extended color light");
-        response.setModelid("LCT015");
-        response.setSwversion("1.46.13_r26312");
-        response.setSwconfigid("52E3234B");
-        response.setProductid("Philips-LCT015-1-A19ECLv5");
-        response.setProductName("Hue color lamp");
+        response.setType("Color light");
+        response.setModelid("LST001");
         
         response.setLuminaireuniqueid(null);
 
